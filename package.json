@@ -1,0 +1,19 @@
+{
+  "name": "mifi-rescan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "debug": "^4.3.3",
+    "js-sha1": "^0.6.0",
+    "node-fetch": "^2.6.7",
+    "request": "^2.88.2",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
