@@ -84,15 +84,15 @@ function getScanStatus({mifisess, sectoken}) {
 }
 
 function startScan({mifisess, sectoken}) {
-	return fetch(`${routerAddress}networkselection/startscan/`, {
-		"headers": {
+  return fetch(`${routerAddress}networkselection/startscan/`, {
+    "headers": {
       ...baseHeaders({mifisess}),
       "Cookie": `mifisess=${mifisess}`,
-			"Referer": "${routerAddress}networks/",
-		},
+      "Referer": "${routerAddress}networks/",
+    },
     "body": `gSecureToken=${sectoken}`,
-		"method": "POST"
-	});
+    "method": "POST"
+  });
 }
 
 async function getSecureToken({mifisess}) {
@@ -107,12 +107,12 @@ async function getSecureToken({mifisess}) {
 
 function getCookies(callback){
   request(routerAddress, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-          return callback(null, response.headers['set-cookie']);
-      } else {
-          return callback(error);
-      }
-  })
+    if (!error && response.statusCode == 200) {
+      return callback(null, response.headers['set-cookie']);
+    } else {
+      return callback(error);
+    }
+  });
 }
 
 function getMifisess() {
@@ -148,16 +148,16 @@ function getMifisess() {
   const statusRes = await getStatus({mifisess});
   debug({statusRes: await statusRes.text()});
   const scanRes = await startScan({    
-		mifisess,
-		sectoken: newToken,
-	});
-	debug({scanRes: await scanRes.text()});
+    mifisess,
+    sectoken: newToken,
+  });
+  debug({scanRes: await scanRes.text()});
   const statusInterval = setInterval(async () => {
-      const getScanStatusRes = await getScanStatus({mifisess});
-      const scanStatus = await getScanStatusRes.text();
-      debug(scanStatus);
-      if (scanStatus.includes("Scan complete")) {
-        clearInterval(statusInterval);
-      }
+    const getScanStatusRes = await getScanStatus({mifisess});
+    const scanStatus = await getScanStatusRes.text();
+    debug(scanStatus);
+    if (scanStatus.includes("Scan complete")) {
+      clearInterval(statusInterval);
+    }
   }, 2000);
 })();
